@@ -1,0 +1,37 @@
+@model ArabaGaleri.Models.Araba
+@{
+    ViewData["Title"] = "Araba Sil";
+}
+
+<div class="container">
+    <h2>Araba Sil</h2>
+    <hr />
+
+    <h3>Bu arabayı silmek istediğinizden emin misiniz?</h3>
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">Marka:</dt>
+            <dd class="col-sm-10">@Model.Marka</dd>
+
+            <dt class="col-sm-2">Model:</dt>
+            <dd class="col-sm-10">@Model.Model</dd>
+
+            <dt class="col-sm-2">Yıl:</dt>
+            <dd class="col-sm-10">@Model.Yil</dd>
+
+            <dt class="col-sm-2">Fiyat:</dt>
+            <dd class="col-sm-10">@Model.Fiyat.ToString("C")</dd>
+        </dl>
+
+        <form asp-action="ArabaDelete" method="post">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger">Sil</button>
+            <a asp-action="Arabalar" class="btn btn-secondary">İptal</a>
+        </form>
+    </div>
+</div>
+
+
+
+

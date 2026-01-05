@@ -1,0 +1,71 @@
+@model ArabaGaleri.Models.Araba
+@{
+    ViewData["Title"] = "Araba Detayları";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            @if (!string.IsNullOrEmpty(Model.ResimUrl))
+            {
+                <img src="@Model.ResimUrl" class="img-fluid rounded shadow" alt="@Model.Marka @Model.Model">
+            }
+            else
+            {
+                <div class="bg-secondary d-flex align-items-center justify-content-center rounded shadow" style="height: 400px;">
+                    <span class="text-white fs-4">Resim Yok</span>
+                </div>
+            }
+        </div>
+        <div class="col-md-6">
+            <h2>@Model.Marka @Model.Model</h2>
+            <hr>
+            <dl class="row">
+                <dt class="col-sm-4">Fiyat:</dt>
+                <dd class="col-sm-8"><span class="text-success fw-bold fs-5">@Model.Fiyat.ToString("C")</span></dd>
+
+                <dt class="col-sm-4">Yıl:</dt>
+                <dd class="col-sm-8">@Model.Yil</dd>
+
+                @if (Model.Kilometre.HasValue)
+                {
+                    <dt class="col-sm-4">Kilometre:</dt>
+                    <dd class="col-sm-8">@Model.Kilometre.Value.ToString("N0") km</dd>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.YakıtTipi))
+                {
+                    <dt class="col-sm-4">Yakıt Tipi:</dt>
+                    <dd class="col-sm-8">@Model.YakıtTipi</dd>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.VitesTipi))
+                {
+                    <dt class="col-sm-4">Vites Tipi:</dt>
+                    <dd class="col-sm-8">@Model.VitesTipi</dd>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.Renk))
+                {
+                    <dt class="col-sm-4">Renk:</dt>
+                    <dd class="col-sm-8">@Model.Renk</dd>
+                }
+            </dl>
+
+            @if (!string.IsNullOrEmpty(Model.Aciklama))
+            {
+                <hr>
+                <h5>Açıklama</h5>
+                <p>@Model.Aciklama</p>
+            }
+
+            <div class="mt-4">
+                <a asp-action="Index" class="btn btn-secondary">Geri Dön</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,94 @@
+@model List<ArabaGaleri.Models.Araba>
+@{
+    ViewData["Title"] = "Arabalar";
+}
+
+<div class="container">
+    <h1 class="mb-4">Araba Galerisi</h1>
+
+    <!-- Arama ve Filtreleme -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <form asp-action="Index" method="get" class="row g-3">
+                <div class="col-md-4">
+                    <label for="searchString" class="form-label">Ara</label>
+                    <input type="text" name="searchString" value="@ViewBag.SearchString" class="form-control" placeholder="Marka, Model veya Açıklama...">
+                </div>
+                <div class="col-md-4">
+                    <label for="markaFilter" class="form-label">Marka</label>
+                    <select name="markaFilter" class="form-select">
+                        <option value="">Tümü</option>
+                        @if (ViewBag.Markalar != null)
+                        {
+                            var markalar = ViewBag.Markalar as List<string>;
+                            if (markalar != null)
+                            {
+                                foreach (var marka in markalar)
+                                {
+                                    <option value="@marka" selected="@(ViewBag.MarkaFilter == marka)">@marka</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-md-4 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">Filtrele</button>
+                    <a asp-action="Index" class="btn btn-secondary ms-2">Temizle</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Araba Listesi -->
+    @if (Model != null && Model.Any())
+    {
+        <div class="row">
+            @foreach (var araba in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        @if (!string.IsNullOrEmpty(araba.ResimUrl))
+                        {
+                            <img src="@araba.ResimUrl" class="card-img-top" alt="@araba.Marka @araba.Model" style="height: 250px; object-fit: cover;">
+                        }
+                        else
+                        {
+                            <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 250px;">
+                                <span class="text-white">Resim Yok</span>
+                            </div>
+                        }
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">@araba.Marka @araba.Model</h5>
+                            <p class="card-text">
+                                <strong>Yıl:</strong> @araba.Yil<br />
+                                <strong>Fiyat:</strong> <span class="text-success fw-bold">@araba.Fiyat.ToString("C")</span><br />
+                                @if (araba.Kilometre.HasValue)
+                                {
+                                    <text><strong>Kilometre:</strong> @araba.Kilometre.Value.ToString("N0") km<br /></text>
+                                }
+                                @if (!string.IsNullOrEmpty(araba.YakıtTipi))
+                                {
+                                    <text><strong>Yakıt:</strong> @araba.YakıtTipi<br /></text>
+                                }
+                            </p>
+                            @if (!string.IsNullOrEmpty(araba.Aciklama))
+                            {
+                                <p class="card-text text-muted small">@(araba.Aciklama.Length > 100 ? araba.Aciklama.Substring(0, 100) + "..." : araba.Aciklama)</p>
+                            }
+                            <div class="mt-auto">
+                                <a asp-action="Details" asp-route-id="@araba.Id" class="btn btn-primary">Detayları Gör</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            <p>Aradığınız kriterlere uygun araba bulunamadı.</p>
+        </div>
+    }
+</div>
+

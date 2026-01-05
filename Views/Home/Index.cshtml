@@ -1,0 +1,55 @@
+﻿@model List<ArabaGaleri.Models.Araba>
+@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+<div class="hero-section bg-primary text-white text-center py-5 mb-5">
+    <div class="container">
+        <h1 class="display-4 fw-bold">Araba Galerisi</h1>
+        <p class="lead">Hayalinizdeki arabayı bulun</p>
+        <a asp-controller="Araba" asp-action="Index" class="btn btn-light btn-lg mt-3">Tüm Arabaları Gör</a>
+    </div>
+</div>
+
+<div class="container">
+    <h2 class="mb-4">Son Eklenen Arabalar</h2>
+    
+    @if (Model != null && Model.Any())
+    {
+        <div class="row">
+            @foreach (var araba in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        @if (!string.IsNullOrEmpty(araba.ResimUrl))
+                        {
+                            <img src="@araba.ResimUrl" class="card-img-top" alt="@araba.Marka @araba.Model" style="height: 200px; object-fit: cover;">
+                        }
+                        else
+                        {
+                            <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 200px;">
+                                <span class="text-white">Resim Yok</span>
+                            </div>
+                        }
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">@araba.Marka @araba.Model</h5>
+                            <p class="card-text">
+                                <strong>Yıl:</strong> @araba.Yil<br>
+                                <strong>Fiyat:</strong> @araba.Fiyat.ToString("C")
+                            </p>
+                            <div class="mt-auto">
+                                <a asp-controller="Araba" asp-action="Details" asp-route-id="@araba.Id" class="btn btn-primary">Detayları Gör</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            <p>Henüz araba eklenmemiş.</p>
+        </div>
+    }
+</div>

@@ -1,0 +1,112 @@
+@model ArabaGaleri.Models.Araba
+@{
+    ViewData["Title"] = "Yeni Araba Ekle";
+}
+
+<div class="container">
+    <h2>Yeni Araba Ekle</h2>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-8">
+            <form asp-action="ArabaCreate" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Marka" class="form-label"></label>
+                        <input asp-for="Marka" class="form-control" />
+                        <span asp-validation-for="Marka" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Model" class="form-label"></label>
+                        <input asp-for="Model" class="form-control" />
+                        <span asp-validation-for="Model" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Yil" class="form-label"></label>
+                        <input asp-for="Yil" class="form-control" type="number" />
+                        <span asp-validation-for="Yil" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Fiyat" class="form-label"></label>
+                        <input asp-for="Fiyat" class="form-control" type="number" step="0.01" />
+                        <span asp-validation-for="Fiyat" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Kilometre" class="form-label"></label>
+                        <input asp-for="Kilometre" class="form-control" type="number" />
+                        <span asp-validation-for="Kilometre" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="YakıtTipi" class="form-label"></label>
+                        <select asp-for="YakıtTipi" class="form-select">
+                            <option value="">Seçiniz</option>
+                            <option value="Benzin">Benzin</option>
+                            <option value="Dizel">Dizel</option>
+                            <option value="LPG">LPG</option>
+                            <option value="Elektrik">Elektrik</option>
+                            <option value="Hibrit">Hibrit</option>
+                        </select>
+                        <span asp-validation-for="YakıtTipi" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="VitesTipi" class="form-label"></label>
+                        <select asp-for="VitesTipi" class="form-select">
+                            <option value="">Seçiniz</option>
+                            <option value="Manuel">Manuel</option>
+                            <option value="Otomatik">Otomatik</option>
+                        </select>
+                        <span asp-validation-for="VitesTipi" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Renk" class="form-label"></label>
+                    <input asp-for="Renk" class="form-control" />
+                    <span asp-validation-for="Renk" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ResimUrl" class="form-label"></label>
+                    <input asp-for="ResimUrl" class="form-control" placeholder="https://example.com/resim.jpg" />
+                    <span asp-validation-for="ResimUrl" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Aciklama" class="form-label"></label>
+                    <textarea asp-for="Aciklama" class="form-control" rows="4"></textarea>
+                    <span asp-validation-for="Aciklama" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input asp-for="SatildiMi" class="form-check-input" />
+                    <label asp-for="SatildiMi" class="form-check-label"></label>
+                </div>
+
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-success">Kaydet</button>
+                    <a asp-action="Arabalar" class="btn btn-secondary">İptal</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+
+
