@@ -9,13 +9,11 @@ namespace ArabaGaleri.Data
         {
             context.Database.EnsureCreated();
 
-            // Admin kullanıcısı var mı kontrol et
             if (context.Kullanicilar.Any())
             {
-                return; // DB has been seeded
+                return;
             }
 
-            // Varsayılan admin kullanıcısı oluştur
             var admin = new Kullanici
             {
                 KullaniciAdi = "admin",
@@ -26,7 +24,6 @@ namespace ArabaGaleri.Data
 
             context.Kullanicilar.Add(admin);
 
-            // Örnek arabalar ekle
             var arabalar = new Araba[]
             {
                 new Araba
