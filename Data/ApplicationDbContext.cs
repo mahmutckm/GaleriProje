@@ -17,12 +17,10 @@ namespace ArabaGaleri.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Araba için varsayılan değerler
             modelBuilder.Entity<Araba>()
                 .Property(a => a.OlusturmaTarihi)
                 .HasDefaultValueSql("GETDATE()");
 
-            // Kullanıcı için varsayılan değerler
             modelBuilder.Entity<Kullanici>()
                 .Property(k => k.OlusturmaTarihi)
                 .HasDefaultValueSql("GETDATE()");
@@ -31,12 +29,10 @@ namespace ArabaGaleri.Data
                 .Property(k => k.IsAdmin)
                 .HasDefaultValue(false);
 
-            // Kullanıcı mail benzersiz olmalı
             modelBuilder.Entity<Kullanici>()
                 .HasIndex(k => k.Email)
                 .IsUnique();
 
-            // Kullanıcıadı benzersiz olmalı
             modelBuilder.Entity<Kullanici>()
                 .HasIndex(k => k.KullaniciAdi)
                 .IsUnique();
